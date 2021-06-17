@@ -8,9 +8,7 @@ public class Transaction {
     private LocalDate transDate;
     private Double transAmount;
 
-    public Long getCustomerId() {
-        return customerId;
-    }
+    public Long getCustomerId() { return customerId; }
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
@@ -40,6 +38,8 @@ public class Transaction {
                 ", transAmount=" + transAmount +
                 '}';
     }
+
+
 }
 
 
