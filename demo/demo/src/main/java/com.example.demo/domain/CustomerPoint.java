@@ -3,7 +3,7 @@ package com.example.demo.domain;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
-
+// Customer Points 
 public class CustomerPoint {
 
     private Long customerId;

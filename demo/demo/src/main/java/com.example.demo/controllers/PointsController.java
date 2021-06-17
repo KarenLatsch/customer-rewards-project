@@ -15,6 +15,7 @@ public class PointsController {
         this.pointsService = pointsService;
     }
 
+//receive transaction
     @PostMapping("/points")
     List<CustomerPoint> receiveTransactions(@RequestBody List<Transaction> transactions){
 

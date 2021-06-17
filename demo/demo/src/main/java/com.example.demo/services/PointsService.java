@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+// Rewards points service
 
 @Service
 public class PointsService {
