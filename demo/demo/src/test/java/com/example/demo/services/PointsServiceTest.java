@@ -14,63 +14,52 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PointsServiceTest {
 
     PointsService pointsService;
-
     @BeforeEach
     void setUp() {
         pointsService = new PointsService();
     }
 
     @Test
-    void earnedOnePointsPlusTwoPoints() {
-
-        // execute test
-        long totalPointsEarned = pointsService.calculatePointsEarn(120.99);
-        assertThat(totalPointsEarned).isEqualTo(90);
-
-        // execute test
-        totalPointsEarned = pointsService.calculatePointsEarn(202.99);
-        assertThat(totalPointsEarned).isEqualTo(254);
+    void purchaseAmountIsUnderFifty() {
+        long totalPointsEarned = pointsService.calculatePointsEarn(23.99);
+        assertThat(totalPointsEarned).isEqualTo(0);
     }
 
     @Test
-    void earnedOnePointsOnly() {
-
-        // execute test
-        long totalPointsEarned = pointsService.calculatePointsEarn(100.99);
-        assertThat(totalPointsEarned).isEqualTo(50);
-
-        // execute test
-        totalPointsEarned = pointsService.calculatePointsEarn(59.99);
-        assertThat(totalPointsEarned).isEqualTo(9);
-
-        // execute test
-        totalPointsEarned = pointsService.calculatePointsEarn(100.00);
-        assertThat(totalPointsEarned).isEqualTo(50);
-    }
-
-    @Test
-    void earnedZeroPoints() {
-
-        // execute test
-        long totalPointsEarned = pointsService.calculatePointsEarn(0.99);
+    void purchaseAmountIsFiftyOrGreaterAndLessThenFiftyOne() {
+        long totalPointsEarned = pointsService.calculatePointsEarn(50.00);
         assertThat(totalPointsEarned).isEqualTo(0);
 
-        // execute test
-         totalPointsEarned = pointsService.calculatePointsEarn(15.99);
-        assertThat(totalPointsEarned).isEqualTo(0);
-
-        // execute test
         totalPointsEarned = pointsService.calculatePointsEarn(50.99);
         assertThat(totalPointsEarned).isEqualTo(0);
+    }
 
-        // execute test
-        totalPointsEarned = pointsService.calculatePointsEarn(50.00);
-        assertThat(totalPointsEarned).isEqualTo(0);
+    @Test
+    void purchaseAmountIsFiftyOneOrGreaterAndLessThanOneHundredAndOne() {
+        long totalPointsEarned = pointsService.calculatePointsEarn(51.80);
+        assertThat(totalPointsEarned).isEqualTo(1);
+
+        totalPointsEarned = pointsService.calculatePointsEarn(55.99);
+        assertThat(totalPointsEarned).isEqualTo(5);
+
+        totalPointsEarned = pointsService.calculatePointsEarn(100.99);
+        assertThat(totalPointsEarned).isEqualTo(50);
+    }
+
+    @Test
+    void purchaseAmountIsOneHundredAndOneOrGreater() {
+        long totalPointsEarned = pointsService.calculatePointsEarn(101.89);
+        assertThat(totalPointsEarned).isEqualTo(52);
+
+        totalPointsEarned = pointsService.calculatePointsEarn(120.99);
+        assertThat(totalPointsEarned).isEqualTo(90);
+
+        totalPointsEarned = pointsService.calculatePointsEarn(250.99);
+        assertThat(totalPointsEarned).isEqualTo(350);
     }
 
     @Test
     void calculatesPointsForSingleCustomerInSingleMonthWithMultipleTransactions() {
-        // set up test data
         List<Transaction> transactions = new ArrayList<>();
 
         Transaction firstTransaction = new Transaction();
@@ -92,63 +81,58 @@ class PointsServiceTest {
         transactions.add(secondTransaction);
         transactions.add(thirdTransaction);
 
-        // execute test
        List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
 
        assertThat(customerPoints).contains(
-               new CustomerPoint(1l,202001l, 91l));
+               new CustomerPoint(1l,"2020-01", 91l));
     }
 
-//    @Test
-//    void calculatesPointsForMultipleCustomerInSingleMonthWithMultipleTransactions() {
-//        // set up test data
-//        List<Transaction> transactions = new ArrayList<>();
-//
-//        Transaction firstTransaction = new Transaction();
-//        firstTransaction.setCustomerId(1l);
-//        firstTransaction.setTransDate(LocalDate.of(2020, 2, 11));
-//        firstTransaction.setTransAmount(49.00);
-//
-//        Transaction secondTransaction = new Transaction();
-//        secondTransaction.setCustomerId(1l);
-//        secondTransaction.setTransDate(LocalDate.of(2020, 2, 25));
-//        secondTransaction.setTransAmount(101.00);
-//
-//        Transaction thirdTransaction = new Transaction();
-//        thirdTransaction.setCustomerId(2l);
-//        thirdTransaction.setTransDate(LocalDate.of(2020, 2, 8));
-//        thirdTransaction.setTransAmount(16.00);
-//
-//        Transaction fourthTransaction = new Transaction();
-//        fourthTransaction.setCustomerId(2l);
-//        fourthTransaction.setTransDate(LocalDate.of(2020, 2, 6));
-//        fourthTransaction.setTransAmount(11.00);
-//
-//        Transaction fifthTransaction = new Transaction();
-//        fifthTransaction.setCustomerId(2l);
-//        fifthTransaction.setTransDate(LocalDate.of(2020, 2, 1));
-//        fifthTransaction.setTransAmount(55.00);
-//
-//        transactions.add(firstTransaction);
-//        transactions.add(secondTransaction);
-//        transactions.add(thirdTransaction);
-//        transactions.add(fourthTransaction);
-//        transactions.add(fifthTransaction);
-//
-//        // execute test
-//       List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
-//
-//       // check results
-//       assertThat(customerPoints)
-//               .contains(
-//                      new CustomerPoint(1l,202002l, 52l),
-//                      new CustomerPoint(2l,202002l,  5l)
-//                );
-//     }
+    @Test
+    void calculatesPointsForMultipleCustomerInSingleMonthWithMultipleTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+
+        Transaction firstTransaction = new Transaction();
+        firstTransaction.setCustomerId(1l);
+        firstTransaction.setTransDate(LocalDate.of(2020, 2, 11));
+        firstTransaction.setTransAmount(49.00);
+
+        Transaction secondTransaction = new Transaction();
+        secondTransaction.setCustomerId(1l);
+        secondTransaction.setTransDate(LocalDate.of(2020, 2, 25));
+        secondTransaction.setTransAmount(101.00);
+
+        Transaction thirdTransaction = new Transaction();
+        thirdTransaction.setCustomerId(2l);
+        thirdTransaction.setTransDate(LocalDate.of(2020, 2, 8));
+        thirdTransaction.setTransAmount(16.00);
+
+        Transaction fourthTransaction = new Transaction();
+        fourthTransaction.setCustomerId(2l);
+        fourthTransaction.setTransDate(LocalDate.of(2020, 2, 6));
+        fourthTransaction.setTransAmount(11.00);
+
+        Transaction fifthTransaction = new Transaction();
+        fifthTransaction.setCustomerId(2l);
+        fifthTransaction.setTransDate(LocalDate.of(2020, 2, 1));
+        fifthTransaction.setTransAmount(55.00);
+
+        transactions.add(firstTransaction);
+        transactions.add(secondTransaction);
+        transactions.add(thirdTransaction);
+        transactions.add(fourthTransaction);
+        transactions.add(fifthTransaction);
+
+        List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
+
+        assertThat(customerPoints)
+               .contains(
+                      new CustomerPoint(1l,"2020-02", 52l),
+                      new CustomerPoint(2l,"2020-02",  5l)
+                );
+     }
 
     @Test
     void calculatesPointsForSingleCustomerInMultipleMonthWithMultipleTransactions() {
-        // set up test data
         List<Transaction> transactions = new ArrayList<>();
 
         Transaction firstTransaction = new Transaction();
@@ -182,20 +166,17 @@ class PointsServiceTest {
         transactions.add(fourthTransaction);
         transactions.add(fifthTransaction);
 
-        // execute test
        List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
 
-       // check results
         assertThat(customerPoints)
                 .contains(
-                       new CustomerPoint(1l, 202002l,  140l),
-                       new CustomerPoint(1l,202003l,  1l)
+                       new CustomerPoint(1l, "2020-02",  140l),
+                       new CustomerPoint(1l,"2020-03",  1l)
                );
     }
 
     @Test
     void calculatesPointsForMultipleCustomerInMultipleMonthWithMultipleTransactions() {
-        // set up test data
         List<Transaction> transactions = new ArrayList<>();
 
         Transaction firstTransaction = new Transaction();
@@ -259,23 +240,20 @@ class PointsServiceTest {
         transactions.add(nineTransaction);
         transactions.add(tenTransaction);
 
-        // execute test
         List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
 
-        // check results
          assertThat(customerPoints)
                  .contains(
-                         new CustomerPoint( 1l, 202002l, 1l),
-                         new CustomerPoint( 1l, 202003l, 90l),
-                         new CustomerPoint( 1l, 202004l, 50l),
-                         new CustomerPoint( 2l, 202002l, 5l),
-                         new CustomerPoint( 2l, 202003l, 120l)
+                         new CustomerPoint( 1l, "2020-02", 1l),
+                         new CustomerPoint( 1l, "2020-03", 90l),
+                         new CustomerPoint( 1l, "2020-04", 50l),
+                         new CustomerPoint( 2l, "2020-02", 5l),
+                         new CustomerPoint( 2l, "2020-03", 120l)
                  );
   }
 
     @Test
     void calculatesPointsForSingleCustomerInSingleMonthWithSingleTransactions() {
-        // set up test data
         List<Transaction> transactions = new ArrayList<>();
 
         Transaction firstTransaction = new Transaction();
@@ -285,17 +263,15 @@ class PointsServiceTest {
 
         transactions.add(firstTransaction);
 
-        // execute test
-         List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
+        List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
 
          assertThat(customerPoints).contains(
-                new CustomerPoint(1l,202002l, 140l));
+                new CustomerPoint(1l,"2020-02", 140l));
     }
 
 
     @Test
     void calculatesPointsForMultipleCustomerInMultipleMonthWithSingleTransactions() {
-        // set up test data
         List<Transaction> transactions = new ArrayList<>();
 
         Transaction firstTransaction = new Transaction();
@@ -311,16 +287,13 @@ class PointsServiceTest {
         transactions.add(firstTransaction);
         transactions.add(secondTransaction);
 
-        // execute test
        List<CustomerPoint> customerPoints = pointsService.getPoints(transactions);
 
-//        // check results
        assertThat(customerPoints)
                 .contains(
-                       new CustomerPoint(1l, 202002l, 90l),
-                       new CustomerPoint(2l, 202003l, 1l)
+                       new CustomerPoint(1l, "2020-02", 90l),
+                       new CustomerPoint(2l, "2020-03", 1l)
                 );
-
     }
 }
 

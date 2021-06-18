@@ -1,16 +1,13 @@
 package com.example.demo.domain;
 
-import java.time.LocalDate;
-import java.util.Map;
 import java.util.Objects;
-// Customer Points 
-public class CustomerPoint {
 
+public class CustomerPoint {
     private Long customerId;
-    private Long yearMonth;
+    private String yearMonth;
     private Long points;
 
-    public CustomerPoint(Long customerId, Long yearMonth, Long points) {
+    public CustomerPoint(Long customerId, String yearMonth, Long points) {
         this.customerId = customerId;
         this.yearMonth = yearMonth;
         this.points = points;
@@ -24,9 +21,9 @@ public class CustomerPoint {
         this.customerId = customerId;
     }
 
-    public Long getYearMonth() { return yearMonth; }
+    public String getYearMonth() { return yearMonth; }
 
-    public void setYearMonth(Long yearMonth) { this.yearMonth = yearMonth; }
+    public void setYearMonth(String yearMonth) { this.yearMonth = yearMonth; }
 
     public Long getPoints() { return points; }
 

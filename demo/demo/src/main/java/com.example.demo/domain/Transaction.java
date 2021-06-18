@@ -1,9 +1,8 @@
 package com.example.demo.domain;
 
 import java.time.LocalDate;
-// transactions receive
-public class Transaction {
 
+public class Transaction {
     private Long customerId;
     private LocalDate transDate;
     private Double transAmount;
@@ -38,7 +37,6 @@ public class Transaction {
                 ", transAmount=" + transAmount +
                 '}';
     }
-
 
 }
 

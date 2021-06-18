@@ -8,20 +8,14 @@ import java.util.List;
 
 @RestController
 public class PointsController {
-
     private PointsService pointsService;
-
     public PointsController(PointsService pointsService) {
         this.pointsService = pointsService;
     }
 
-//receive transaction
     @PostMapping("/points")
     List<CustomerPoint> receiveTransactions(@RequestBody List<Transaction> transactions){
-
        List<CustomerPoint> customersPoints = pointsService.getPoints(transactions);
-
        return customersPoints;
     }
-
 }
