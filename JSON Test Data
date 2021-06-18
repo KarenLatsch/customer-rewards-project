@@ -1,8 +1,13 @@
 # Test 1 SingleCustomerInSingleMonthWithMultipleTransactions
 
-# Expect -  [ { "customerId": 1001, "yearMonth": 2020-01, "points": 91 } ]
+# Expect -  
+[ 
+{ "customerId": 1001, "yearMonth": 2020-01, "points": 91 } 
+]
 
-[{
+# POST -
+[
+   {
      "customerId": 1001,
      "transDate": "2020-01-30",
      "transAmount": 1.34 
@@ -16,20 +21,20 @@
      "customerId": 1001,
      "transDate": "2020-01-10",
      "transAmount": 120.00 
-   },
-   {
-     "customerId": 2,
-     "transDate": "2020-01-30",
-     "transAmount": 59.34 
-   }  
+   }
 ]
 
 # Test 2 MultipleCustomerInSingleMonthWithMultipleTransactions
 
-Expect -  [ { "customerId": 1001, "yearMonth": 2020-02, "points": 52 }, 
-{ "customerId": 1002, "yearMonth": 2020-02, "points": 5 } ]
+# Expect -  
+[ 
+{ "customerId": 1001, "yearMonth": 2020-02, "points": 52 }, 
+{ "customerId": 1002, "yearMonth": 2020-02, "points": 5 } 
+]
 
-[{
+# POST -
+[
+   {
      "customerId": 1001,
      "transDate": "2020-02-26",
      "transAmount": 49.00 
@@ -58,10 +63,15 @@ Expect -  [ { "customerId": 1001, "yearMonth": 2020-02, "points": 52 },
 
 # Test 3 SingleCustomerInMultipleMonthWithMultipleTransactions
 
-Expect -  [ { "customerId": 1001, "yearMonth": 2020-02, "points": 140 }, 
-{ "customerId": 1001, "yearMonth": 2020-03, "points": 1 } ]
+# Expect -  
+[ 
+{ "customerId": 1001, "yearMonth": 2020-02, "points": 140 }, 
+{ "customerId": 1001, "yearMonth": 2020-03, "points": 1 } 
+]
 
-[{
+# POST - 
+[
+   {
      "customerId": 1001,
      "transDate": "2020-02-26",
      "transAmount": 100.00 
@@ -88,19 +98,18 @@ Expect -  [ { "customerId": 1001, "yearMonth": 2020-02, "points": 140 },
    }  
 ]
 
-
 # Test 4 MultipleCustomerInMultipleMonthWithMultipleTransactions
 
-Expect -  
+# Expect -  
 [ 
 { "customerId": 1001, "yearMonth": 2020-02, "points": 1 },
 { "customerId": 1001, "yearMonth": 2020-03, "points": 90 }, 
 { "customerId": 1001, "yearMonth": 2020-04, "points": 50 }, 
 { "customerId": 1002, "yearMonth": 2020-02, "points": 5 },
-{ "customerId": 1002, "yearMonth": 2020-03, "points": 120 } 
+{ "customerId": 1002, "yearMonth": 2020-03, "points": 90 } 
 ]
 
-
+# POST -
 [
    {
      "customerId": 1001,
@@ -154,4 +163,39 @@ Expect -
    }  
  ]
 
+# Test 5 SingleCustomerInSingleMonthWithSingleTransactions
+
+# Expect - 
+[ 
+{ "customerId": 1001, "yearMonth": 2020-02, "points": 140 } 
+]
+
+# POST - 
+[
+   {
+     "customerId": 1001,
+     "transDate": "2020-02-26",
+     "transAmount": 145.07 
+   }
+] 
+
+# Test 6 MultipleCustomerInMultipleMonthWithSingleTransactions
+
+# Expect -
+[ { "customerId": 1001, "yearMonth": 2020-02, "points": 90 }, 
+{ "customerId": 1002, "yearMonth": 2020-03, "points": 1 } ]
+
+# POST - 
+[
+   {
+     "customerId": 1001,
+     "transDate": "2020-02-26",
+     "transAmount": 120.07 
+   },
+   {
+     "customerId": 1002,
+     "transDate": "2020-03-13",
+     "transAmount": 51.07 
+   }
+] 
 
