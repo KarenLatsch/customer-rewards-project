@@ -4,7 +4,7 @@ My customer rewards project is a Rest API application that uses Spring Web and J
 of a customer's purchase and returns reward points earned for each customer totaled within a specific month.
 
 This application is intended for the UI to handle the customer's totals for a three-month period. 
-This allows the front-end to calculate all totals needed in the future without changing the back-end.
+This allows the front-end to calculate all totals needed in the future without changing the backend.
 
 The data received and sent back from the application is in JSON format.
 
@@ -26,7 +26,7 @@ The format sent from the application:
 Post mapping:
 http://localhost:8080/points
 
-Reward points are base on the following:
+Reward points are based on the following:
 A customer receives 2 points for every dollar spent over $100 in each transaction, plus 1 point for every dollar spent over $50 in each transaction
 
 (e.g. a $120 purchase = 2x$20 + 1x$50 = 90 points).
