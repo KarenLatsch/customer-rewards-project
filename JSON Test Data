@@ -1,0 +1,21 @@
+[{
+     "customerId": 1,
+     "transDate": "2020-09-30",
+     "transAmount": 120.34 
+   }, 
+   {
+     "customerId": 1,
+     "transDate": "2020-12-12",
+     "transAmount": 199.34 
+   },
+   {
+     "customerId": 1,
+     "transDate": "2020-04-10",
+     "transAmount": 100.34 
+   },
+   {
+     "customerId": 2,
+     "transDate": "2020-01-30",
+     "transAmount": 59.34 
+   }  
+]
